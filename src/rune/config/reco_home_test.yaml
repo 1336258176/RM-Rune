@@ -1,0 +1,40 @@
+/rune/recognition_node:
+  ros__parameters:
+    debug: true # debug mode
+    debug_raw_img: false
+    debug_bin_img: true
+    debug_con_img: false
+    debug_rec_img: true
+    show_err_contours: true
+    record_rec_img: false
+    debug_show_pnp: true
+
+    lightbar_color: "Red" # 敌方灯条颜色
+
+    BinaryThres_Blue: 140.0 # 蓝色二值化阈值
+    BinaryThres_Red: 80.0 # 红色二值化阈值
+    BinaryThres: 0.0 # 红蓝二值化阈值均值
+    MinWaterfallLightCount: 2 # 最小流水灯数量
+    RuneRadius: 700.0 # 能量机关半径（圆心到扇叶中心 mm）
+    RHeight: 158.1 # R型标高度,(场地高度与官方高度不同)
+    WaterfallLightMaxDistanceDiff: 25.0 # 流水灯最大距离差(像素)
+    WaterfallLightMinArea: 10.0 # R型灯最小中心面积
+    WaterfallLightMaxArea: 500.0 # R型灯最大中心面积
+    WaterfallLightMinROF: 0.55 # R型灯最小填充率
+    WaterfallLightMaxROF: 0.85 # R型灯最大填充率
+    WaterfallLightMinAspectRatio: 0.6 # R型灯最小宽高比
+    WaterfallLightMaxAspectRatio: 1.0 # R型灯最大宽高比
+    MoonFrameMinArea: 500.0 # T型框最小面积
+    MoonFrameMaxArea: 3000.0 # T型框最大面积
+    MoonFrameMinAspectRatio: 0.35 # T型框最小宽高比
+    MoonFrameMaxAspectRatio: 0.45 # T型框最大宽高比
+    MoonFrameMinROF: 0.25 # T型框最小填充率
+    MoonFrameMaxROF: 0.50 # T型框最大填充率
+    InsideMoonWidth: 372.38 # T型框宽度（mm）
+    InsideMoonLength: 540.53 # T型框长度（mm）
+    OutsideMoonWidth: 346.4 # 月牙型框宽度（mm）
+    OutsideMoonHeight: 150.84 # 月牙形框高度（mm）
+    FanbladeCenter2InsideMoontop: 45.06 # 扇叶中心到T型框上端的距离
+    FanbladeCenter2OutsideMoontop: 49.9 # 扇叶中心到Moon型框下端的距离
+    FanBladeCenter_Outside_Inside_1: 0.489145 # 扇叶中心在Moon和T中心连线上的比例1
+    FanBladeCenter_Outside_Inside_2: 0.510855 # 扇叶中心在Moon和T中心连线上的比例2

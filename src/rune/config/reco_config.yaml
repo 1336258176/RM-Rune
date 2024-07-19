@@ -1,0 +1,42 @@
+/rune/recognition_node:
+  ros__parameters:
+    debug: true # debug mode
+    debug_raw_img: false
+    debug_bin_img: true
+    debug_con_img: false
+    debug_rec_img: true
+    show_err_contours: true
+    record_rec_img: false
+    debug_show_pnp: true
+
+    lightbar_color: "Blue" # 敌方灯条颜色
+
+    # BinaryThres_Blue: 185.0 # 蓝色二值化阈值（只用于2023赛季录制的测试视频） 
+    # BinaryThres_Red: 80.0 # 红色二值化阈值（只用于2023赛季录制的测试视频）
+    BinaryThres_Blue: 90.0 # 蓝色二值化阈值
+    BinaryThres_Red: 75.0 # 红色二值化阈值
+    BinaryThres: 85.0 # 红蓝二值化阈值均值
+    MinWaterfallLightCount: 4 # 最小流水灯数量
+    RuneRadius: 700.0 # 能量机关半径（圆心到扇叶中心 mm）
+    RHeight: 158.1 # R型标高度,(场地高度与官方高度不同)
+    WaterfallLightMaxDistanceDiff: 25.0 # 流水灯最大距离差(像素)
+    WaterfallLightMinArea: 50.0 # R型灯最小中心面积
+    WaterfallLightMaxArea: 350.0 # R型灯最大中心面积
+    WaterfallLightMinROF: 0.65 # R型灯最小填充率
+    WaterfallLightMaxROF: 0.90 # R型灯最大填充率
+    WaterfallLightMinAspectRatio: 0.65 # R型灯最小宽高比
+    WaterfallLightMaxAspectRatio: 1.00 # R型灯最大宽高比
+    MoonFrameMinArea: 300.0 # T型框最小面积
+    MoonFrameMaxArea: 2000.0 # T型框最大面积
+    MoonFrameMinAspectRatio: 0.25 # T型框最小宽高比
+    MoonFrameMaxAspectRatio: 0.50 # T型框最大宽高比
+    MoonFrameMinROF: 0.10 # T型框最小填充率
+    MoonFrameMaxROF: 0.26 # T型框最大填充率
+    InsideMoonWidth: 372.38 # T型框宽度（mm）
+    InsideMoonLength: 540.53 # T型框长度（mm）
+    OutsideMoonWidth: 346.4 # 月牙型框宽度（mm）
+    OutsideMoonHeight: 150.84 # 月牙形框高度（mm）
+    FanbladeCenter2InsideMoontop: 45.06 # 扇叶中心到T型框上端的距离
+    FanbladeCenter2OutsideMoontop: 49.9 # 扇叶中心到Moon型框下端的距离
+    FanBladeCenter_Outside_Inside_1: 0.489145 # 扇叶中心在Moon和T中心连线上的比例1
+    FanBladeCenter_Outside_Inside_2: 0.510855 # 扇叶中心在Moon和T中心连线上的比例2

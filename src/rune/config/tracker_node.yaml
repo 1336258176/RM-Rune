@@ -1,0 +1,9 @@
+/rune/tracker_node:
+  ros__parameters:
+    sigma_s_x: 10.0
+    sigma_s_y: 100.0
+    sigma_s_z: 1.0
+    sigma_m_x: 0.05
+    sigma_m_alpha: 6.25e-6
+    sigma_m_beta: 1.125e-5
+    chi_square_threshold: 0.8
