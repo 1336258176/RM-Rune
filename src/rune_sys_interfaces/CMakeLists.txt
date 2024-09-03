@@ -18,10 +18,7 @@ find_package(geometry_msgs REQUIRED)
 
 set(MsgSrc
   msg/Fanblade.msg
-  msg/Target.msg
-  msg/TargetState.msg
-  msg/TrackedRune.msg 
-)
+  msg/Target.msg)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${MsgSrc}

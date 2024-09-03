@@ -57,6 +57,16 @@ public:
   };
 
   /**
+   * @brief 能量机关旋转状态 
+   */
+  enum class RuneRotationStatue
+  {
+    CW,   /**< 顺时针*/
+    CCW,  /**< 逆时针*/
+    NONE
+  };
+
+  /**
    * @brief 判断当前帧的扇叶与上一帧的扇叶是否接近重合
    */
   enum class FanbladeStatue {
@@ -217,6 +227,13 @@ private:
   bool matched_fanblade_ = false; /**< 判断当前帧下是否查找到扇叶*/
   LightColor rune_color_;        /**< 能量机关颜色*/
   NodeStatus node_status_;
+
+  int error_rotation_count_{};
+  RuneRotationStatue rune_rotation_ = RuneRotationStatue::NONE;
+  RuneRotationStatue last_rune_rotation_ = RuneRotationStatue::CCW;
+  MoonFrame last_inside_moon_{};
+  MoonFrame last_outside_moon_{};
+
   std::shared_ptr<FanBlade> fanblade_ = std::make_shared<FanBlade>(); /**< 记录当前帧查找到的扇叶*/
   std::shared_ptr<FanBlade> last_fanblade_ = std::make_shared<FanBlade>(); /**< 上一次识别到的扇叶*/
 

@@ -73,7 +73,6 @@ void PredictionNode::fanbladeCallback(
   {
     RCLCPP_ERROR(this->get_logger(), "Autoaim Error!");
   }
-  rune_statue_ = RuneStatue::SMALL;
 
   /* ---------------------------------- Deal with Angle and time ---------------------------------- */
   const cv::Point3d fanblade_center_odom{fanblade_msg->fanblade_center.position.x,
@@ -132,12 +131,10 @@ void PredictionNode::fanbladeCallback(
       time -= time_begin;
     });
 
-    rune_rotation_statue_ = judgeRuneRotationStatue();
-    if (rune_rotation_statue_ == RuneRotationStatue::NONE)
-    {
-      //TODO: 判断不出旋转状态，默认跟随
-      // RCLCPP_WARN(this->get_logger(), "Rune-RotationStatue: NONE, following by default.");
+    if (fanblade_msg->rotation == 0) {
       return;
+    } else {
+      rune_rotation_statue_ = fanblade_msg->rotation == 1 ? RuneRotationStatue::CW : RuneRotationStatue::CCW;
     }
   }
 
@@ -289,46 +286,6 @@ void PredictionNode::inferencePose(cv::Point3f & target_pose, const double dif_a
   target_pose.x = x;
   target_pose.y = y;
   target_pose.z = 0;
-}
-
-RuneRotationStatue PredictionNode::judgeRuneRotationStatue()
-{
-  /** Pearson's correlation coefficient
-   *  https://en.wikipedia.org/wiki/Pearson_correlation_coefficient
-   */
-  double sum_1 = 0.0;
-  double times_total = 0.0;
-  double times_2_total = 0.0;
-  double angles_total = 0.0;
-  double angles_2_total = 0.0;
-  for (int i = 0; i < QUEUE_LENGTH; i++)
-  {
-    sum_1 = sum_1 + (*time_buffer_)[i] * (*angle_buffer_)[i];
-    times_total += (*time_buffer_)[i];
-    times_2_total += (*time_buffer_)[i] * (*time_buffer_)[i];
-    angles_total += (*angle_buffer_)[i];
-    angles_2_total += (*angle_buffer_)[i] * (*angle_buffer_)[i];
-  }
-  sum_1 *= QUEUE_LENGTH;
-  const double sum_2 = times_total * angles_total;
-  const double sum_3 = std::sqrt(QUEUE_LENGTH * times_2_total - times_total * times_total);
-  const double sum_4 = std::sqrt(QUEUE_LENGTH * angles_2_total - angles_total * angles_total);
-  const double pcc   = std::abs((sum_1 - sum_2) / (sum_3 * sum_4));
-
-  if (pcc > 0.0)
-  {
-    // RCLCPP_INFO(this->get_logger(), "Rune-RotationStatue: CCW, PCC val: %lf", pcc);
-    return RuneRotationStatue::CCW;
-  }
-  else if (pcc < 0.0)
-  {
-    // RCLCPP_INFO(this->get_logger(), "Rune-RotationStatue: CW, PCC val: %lf", pcc);
-    return RuneRotationStatue::CW;
-  }
-  else
-  {
-    return RuneRotationStatue::NONE;
-  }
 }
 
 }  // namespace rune

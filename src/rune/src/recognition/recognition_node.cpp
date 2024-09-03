@@ -69,7 +69,7 @@ rclcpp::Node("RecognitionNode", options)
   } else
   {
     RCLCPP_WARN(this->get_logger(), "Release Mode");
-    time_->reset();
+    time_ = this->create_wall_timer(100ms, std::bind(&RecognitionNode::updateParams, this));
   }
 }
 
@@ -230,6 +230,22 @@ void RecognitionNode::ImgCallback(const sensor_msgs::msg::Image::ConstSharedPtr 
     tf2::Quaternion tf2_quaternion;
     tf2_rot_mat.getRotation(tf2_quaternion);
     fanblade_msg.quaternion.orientation = tf2::toMsg(tf2_quaternion);
+
+    /* RuneRotation: 0->NONE 1->CW 2->CCW */
+    if (rune_rotation_ == RuneRotationStatue::NONE) {
+      return;
+    } else if (last_rune_rotation_ != rune_rotation_) {
+      error_rotation_count_++;
+      fanblade_msg.rotation = last_rune_rotation_ == RuneRotationStatue::CW ? 1u : 2u;
+      if (error_rotation_count_ > 3) {
+        fanblade_msg.rotation = rune_rotation_ == RuneRotationStatue::CW ? 1u : 2u;
+        last_rune_rotation_ = rune_rotation_;
+        error_rotation_count_ = 0;
+      }
+    } else {
+      error_rotation_count_ = 0;
+      fanblade_msg.rotation = rune_rotation_ == RuneRotationStatue::CW ? 1u : 2u;
+    }
  
     const auto end_img_callback = this->now();
     timecost_->ImgCallback_cost =

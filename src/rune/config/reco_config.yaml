@@ -13,8 +13,8 @@
 
     # BinaryThres_Blue: 185.0 # 蓝色二值化阈值（只用于2023赛季录制的测试视频） 
     # BinaryThres_Red: 80.0 # 红色二值化阈值（只用于2023赛季录制的测试视频）
-    BinaryThres_Blue: 90.0 # 蓝色二值化阈值
-    BinaryThres_Red: 75.0 # 红色二值化阈值
+    BinaryThres_Blue: 130.0 # 蓝色二值化阈值
+    BinaryThres_Red: 90.0 # 红色二值化阈值
     BinaryThres: 85.0 # 红蓝二值化阈值均值
     MinWaterfallLightCount: 4 # 最小流水灯数量
     RuneRadius: 700.0 # 能量机关半径（圆心到扇叶中心 mm）
@@ -29,9 +29,9 @@
     MoonFrameMinArea: 300.0 # T型框最小面积
     MoonFrameMaxArea: 2000.0 # T型框最大面积
     MoonFrameMinAspectRatio: 0.25 # T型框最小宽高比
-    MoonFrameMaxAspectRatio: 0.50 # T型框最大宽高比
-    MoonFrameMinROF: 0.10 # T型框最小填充率
-    MoonFrameMaxROF: 0.26 # T型框最大填充率
+    MoonFrameMaxAspectRatio: 0.55 # T型框最大宽高比
+    MoonFrameMinROF: 0.15 # T型框最小填充率
+    MoonFrameMaxROF: 0.30 # T型框最大填充率
     InsideMoonWidth: 372.38 # T型框宽度（mm）
     InsideMoonLength: 540.53 # T型框长度（mm）
     OutsideMoonWidth: 346.4 # 月牙型框宽度（mm）

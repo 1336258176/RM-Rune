@@ -16,7 +16,7 @@ TrackerNode::TrackerNode(const rclcpp::NodeOptions & options) : Node("TrackerNod
   sync_->registerCallback(&TrackerNode::TargetCallback, this);
 
   pub_tracked_target_ =
-    this->create_publisher<rune_sys_interfaces::msg::TrackedRune>(pub_odom_tracker_target_, 10);
+    this->create_publisher<autoaim_sys_interfaces::msg::TrackedRune>(pub_odom_tracker_target_, 10);
   pub_debug_chi_ = this->create_publisher<std_msgs::msg::Float64>("debug_rune_chi", 10);
 
   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
@@ -147,7 +147,7 @@ void TrackerNode::TargetCallback(
   // publish
   {
     Eigen::Matrix<double, 6, 1> target_state = tracker_->ekf->getS_e();
-    rune_sys_interfaces::msg::TrackedRune tracked_rune_msg;
+    autoaim_sys_interfaces::msg::TrackedRune tracked_rune_msg;
     tracked_rune_msg.header.stamp = target_msg->header.stamp;
     tracked_rune_msg.header.frame_id = "odom_frame";
     tracked_rune_msg.is_tracked = tracker_->target_status == TargetStatus::LOST ? false : true;

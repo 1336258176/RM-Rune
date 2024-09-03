@@ -6,6 +6,7 @@
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
 
+#include <autoaim_sys_interfaces/msg/detail/tracked_rune__struct.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/transform.hpp>
@@ -15,7 +16,7 @@
 #include <std_msgs/msg/float64.hpp>
 #include <string>
 
-#include "rune_sys_interfaces/msg/tracked_rune.hpp"
+#include "autoaim_sys_interfaces/msg/tracked_rune.hpp"
 #include "rune_sys_interfaces/msg/target.hpp"
 #include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 #include "tracker/cv_model.hpp"
@@ -71,7 +72,7 @@ private:
   rclcpp::TimerBase::SharedPtr update_params_timer_{};
 
   using TargetMsg = rune_sys_interfaces::msg::Target;
-  using TrackedTargetMsg = rune_sys_interfaces::msg::TrackedRune;
+  using TrackedTargetMsg = autoaim_sys_interfaces::msg::TrackedRune;
   using TransformStamped = geometry_msgs::msg::TransformStamped;
   message_filters::Subscriber<TargetMsg> camera_target_sub_{};
   message_filters::Subscriber<TransformStamped> camera2odom_sub_{};
@@ -82,7 +83,7 @@ private:
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_{nullptr};
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_debug_chi_;
 
-  rclcpp::Publisher<rune_sys_interfaces::msg::TrackedRune>::SharedPtr pub_tracked_target_{};
+  rclcpp::Publisher<autoaim_sys_interfaces::msg::TrackedRune>::SharedPtr pub_tracked_target_{};
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_odom_target_debug_{};
 
   //params

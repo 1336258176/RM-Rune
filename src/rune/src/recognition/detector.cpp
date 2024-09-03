@@ -393,6 +393,24 @@ bool RecognitionNode::matchFanBlade()
     return false;
   }
 
+  /* Determine the direction of rotation */
+  cv::Vec2d v1{outside_moon.center_.x - inside_moon.center_.x,
+               outside_moon.center_.y - inside_moon.center_.y};
+  cv::Vec2d v2{last_outside_moon_.center_.x - last_inside_moon_.center_.x,
+               last_outside_moon_.center_.y - last_inside_moon_.center_.y};
+  const double cross_product_val = crossProduct<cv::Vec2d>(v2, v1);
+  if (cross_product_val < 0) {
+    rune_rotation_ = RuneRotationStatue::CCW;
+  } else if (cross_product_val > 0) {
+    rune_rotation_ = RuneRotationStatue::CW;
+  } else {
+    rune_rotation_ = RuneRotationStatue::NONE;
+  }
+  // RCLCPP_INFO(this->get_logger(), "rune rotation: %s",
+  //             rune_rotation_ == RuneRotationStatue::CCW ? "CCW" : "CW");
+  last_inside_moon_ = inside_moon;
+  last_outside_moon_ = outside_moon;
+
   const std::array<cv::Point2d, 4> pnp_2D_points = findPnp2DPoints(inside_moon, outside_moon);
 
   const cv::Point2f center(outside_moon.center_.x * rune_params_->FanBladeCenter_Outside_Inside_1 +

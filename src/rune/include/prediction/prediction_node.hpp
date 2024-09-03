@@ -34,14 +34,14 @@
 #include <string_view>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-#include "prediction/bullet_solve.hpp"
+#include "../../fire_control_package/include/fire_control_package/bullet_solve.hpp"
 #include "predictor-ceres.hpp"
 #include "rune_sys_interfaces/msg/fanblade.hpp"
 #include "rune_sys_interfaces/msg/target.hpp"
 
 namespace rune
 {
-constexpr int QUEUE_LENGTH = 20;
+constexpr int QUEUE_LENGTH = 3;
 constexpr int DW = 10;
 
 /**
@@ -49,9 +49,9 @@ constexpr int DW = 10;
  */
 enum class RuneRotationStatue
 {
-  CW,
-  /**< 顺时针*/ CCW,
-  /**< 逆时针*/ NONE
+  CW,   /**< 顺时针*/
+  CCW,  /**< 逆时针*/
+  NONE
 };
 
 class PredictionNode : public rclcpp::Node
@@ -70,9 +70,8 @@ private:
   RuneStatue rune_statue_;
   RuneRotationStatue rune_rotation_statue_;
 
-  const double bullet_speed_ = 27.8;   /**< 弹速*/
+  const double bullet_speed_ = 28.1;   /**< 弹速*/
   const double rune_radius_ = 700.0;   /**< 能量机关半径（mm）*/
-  const double pcc_thre_ = 0.8;        /**< PCC阈值*/
   double bullet_fly_time_ = 0.0;       /**< 预测时间（子弹飞行时间）*/
   uint8_t error_prediction_count_ = 0; /**< 预测错误计数*/
 
@@ -118,13 +117,6 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_debug_pre_x_{nullptr};
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_debug_pre_y_{nullptr};
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_debug_pre_z_{nullptr};
-
-  /**
-   * @brief Determine the rotation state of the Rune, CW: clockwise, CCW: counterclockwise
-   * 
-   * @return RuneRotationStatue the rotation state of the Rune
-   */
-  RuneRotationStatue judgeRuneRotationStatue();
 
   /**
    * @brief The fan blade pose is inferred from the predicted Angle

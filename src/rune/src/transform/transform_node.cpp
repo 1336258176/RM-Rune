@@ -106,6 +106,7 @@ void TransformNode::fanbladeCallback(const rune_sys_interfaces::msg::Fanblade::C
   fanblade_msg.fanblade_center.position.z = fanblade_center_odom[2];
   fanblade_msg.quaternion                 = msg->quaternion;
   fanblade_msg.t_vec                      = msg->t_vec;
+  fanblade_msg.rotation                   = msg->rotation;
   pub_fanblade_odom_->publish(fanblade_msg);
 }
 

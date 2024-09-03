@@ -24,13 +24,13 @@ def generate_launch_description():
             package='rclcpp_components',
             executable='component_container',
             composable_node_descriptions=[
-                ComposableNode(
-                    package='rune',
-                    plugin='rune::TransformNode',
-                    name='transform_node',
-                    namespace='rune',
-                    extra_arguments=[{'use_intra_process_comms': True}]
-                ),
+                # ComposableNode(
+                #     package='rune',
+                #     plugin='rune::TransformNode',
+                #     name='transform_node',
+                #     namespace='rune',
+                #     extra_arguments=[{'use_intra_process_comms': True}]
+                # ),
 
                 ComposableNode(
                     package='rune',
@@ -41,13 +41,13 @@ def generate_launch_description():
                     extra_arguments=[{'use_intra_process_comms': True}]
                 ),
 
-                ComposableNode(
-                    package='rune',
-                    plugin='rune::PredictionNode',
-                    name='prediction_node',
-                    namespace='rune',
-                    extra_arguments=[{'use_intra_process_comms': True}]
-                ),
+                # ComposableNode(
+                #     package='rune',
+                #     plugin='rune::PredictionNode',
+                #     name='prediction_node',
+                #     namespace='rune',
+                #     extra_arguments=[{'use_intra_process_comms': True}]
+                # ),
 
                 ComposableNode(
                     package='rune',

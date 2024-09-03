@@ -99,6 +99,8 @@ private:
   }
 
   double spd_small_ = static_cast<double>((M_PI) / 3.0); /**< 小符角速度*/
+  double spd_big_ = static_cast<double>((M_PI / 3.0 * 1.2));
+  const double pre_angle_offset_ = 2.7 / 180.0 * M_PI;
 
   size_t time_cost_{};
   bool is_fixed{false};
@@ -168,29 +170,7 @@ double PredictorCeres<queue_length>::predict(const double time,
 {
   if (rune_statue == RuneStatue::BIG)
   {
-    try
-    {
-      solve();
-    }
-    catch (const std::exception & e)
-    {
-      throw std::runtime_error("Rune-Predictor-Ceres Error: solve failed.");
-    }
-
-    double all_time = time + pre_time + time_cost_;
-
-    double pre_angle = std::abs(
-      params_[0] * ceres::sin(params_[1] * all_time) +
-      params_[2] * ceres::cos(params_[1] * all_time) + params_[3] * all_time + params_[4] -
-      init_angle);
-
-    if (!std::isnormal(pre_angle))
-    {
-      pre_angle = init_angle;
-      throw std::runtime_error("Rune-Predictor-Ceres Error: pre_angle is not normal.");
-    }
-
-    return pre_angle;
+    return spd_big_ * pre_time * 1.0e-3 + pre_angle_offset_;
   }
   else if (rune_statue == RuneStatue::SMALL)
   {
